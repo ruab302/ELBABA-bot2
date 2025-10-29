@@ -1,10 +1,12 @@
-const { EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
-  name: 'serverinfo',
-  description: 'معلومات عن السيرفر',
-  execute(message) {
-    const { guild } = message;
+  data: new SlashCommandBuilder()
+    .setName('serverinfo')
+    .setDescription('📊 يعرض معلومات عن السيرفر'),
+
+  async execute(interaction) {
+    const { guild } = interaction;
 
     const embed = new EmbedBuilder()
       .setTitle(`📊 معلومات السيرفر: ${guild.name}`)
@@ -16,6 +18,6 @@ module.exports = {
       )
       .setColor('#9b59b6');
 
-    message.reply({ embeds: [embed] });
-  }
+    await interaction.reply({ embeds: [embed] });
+  },
 };
